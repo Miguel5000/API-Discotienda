@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.apidiscotienda.controller;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.CompraCancionDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraCancion;
@@ -43,7 +44,7 @@ public class CompraCancionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerTodos() throws ObtencionException{
     
-        List<CompraCancion> comprasCanciones = this.service.obtenerTodos();
+        List<CompraCancionDto> comprasCanciones = this.service.obtenerTodos();
         return Response.status(Response.Status.OK).entity(comprasCanciones).build();
         
     }
@@ -53,7 +54,7 @@ public class CompraCancionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPorId(Integer id) throws ObtencionException{
     
-        CompraCancion compraCancion = this.service.obtenerPorId(id);
+        CompraCancionDto compraCancion = this.service.obtenerPorId(id);
         return Response.status(Response.Status.OK).entity(compraCancion).build();
         
     }

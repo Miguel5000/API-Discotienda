@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.apidiscotienda.controller;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.CreadorDiscoDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CreadorDisco;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -40,7 +41,7 @@ public class CreadorDiscoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerTodos() throws ObtencionException{
     
-        List<CreadorDisco> creaciones = this.service.obtenerTodos();
+        List<CreadorDiscoDto> creaciones = this.service.obtenerTodos();
         return Response.status(Response.Status.OK).entity(creaciones).build();
         
     }
@@ -50,7 +51,7 @@ public class CreadorDiscoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPorId(Integer id) throws ObtencionException{
     
-        CreadorDisco creacion = this.service.obtenerPorId(id);
+        CreadorDiscoDto creacion = this.service.obtenerPorId(id);
         return Response.status(Response.Status.OK).entity(creacion).build();
         
     }

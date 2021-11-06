@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.apidiscotienda.controller;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.RolDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Rol;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -40,7 +41,7 @@ public class RolController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerTodos() throws ObtencionException{
     
-        List<Rol> rol = this.service.obtenerTodos();
+        List<RolDto> rol = this.service.obtenerTodos();
         return Response.status(Response.Status.OK).entity(rol).build();
         
     }
@@ -50,7 +51,7 @@ public class RolController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPorId(Integer id) throws ObtencionException{
     
-        Rol rol = this.service.obtenerPorId(id);
+        RolDto rol = this.service.obtenerPorId(id);
         return Response.status(Response.Status.OK).entity(rol).build();
         
     }

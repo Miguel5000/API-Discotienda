@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.apidiscotienda.controller;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.FormatoDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Formato;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -40,7 +41,7 @@ public class FormatoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerTodos() throws ObtencionException{
     
-        List<Formato> formatos = this.service.obtenerTodos();
+        List<FormatoDto> formatos = this.service.obtenerTodos();
         return Response.status(Response.Status.OK).entity(formatos).build();
         
     }
@@ -50,7 +51,7 @@ public class FormatoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPorId(Integer id) throws ObtencionException{
     
-        Formato formato = this.service.obtenerPorId(id);
+        FormatoDto formato = this.service.obtenerPorId(id);
         return Response.status(Response.Status.OK).entity(formato).build();
         
     }

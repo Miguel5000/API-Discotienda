@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.apidiscotienda.controller;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.CancionDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
@@ -42,7 +43,7 @@ public class CancionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerTodos() throws ObtencionException{
     
-        List<Cancion> canciones = this.service.obtenerTodos();
+        List<CancionDto> canciones = this.service.obtenerTodos();
         return Response.status(Response.Status.OK).entity(canciones).build();
         
     }
@@ -52,7 +53,7 @@ public class CancionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPorId(Integer id) throws ObtencionException{
     
-        Cancion cancion = this.service.obtenerPorId(id);
+        CancionDto cancion = this.service.obtenerPorId(id);
         return Response.status(Response.Status.OK).entity(cancion).build();
         
     }
@@ -103,7 +104,7 @@ public class CancionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerListaPorCompra(Compra compra) throws ObtencionException{
     
-        List<Cancion> canciones = this.service.obtenerListaPorCompra(compra);
+        List<CancionDto> canciones = this.service.obtenerListaPorCompra(compra);
         return Response.status(Response.Status.OK).entity(canciones).build();
         
     }
@@ -114,7 +115,7 @@ public class CancionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerListaPorDisco(Disco disco) throws ObtencionException{
     
-        List<Cancion> canciones = this.service.obtenerListaPorDisco(disco);
+        List<CancionDto> canciones = this.service.obtenerListaPorDisco(disco);
         return Response.status(Response.Status.OK).entity(canciones).build();
     
     }

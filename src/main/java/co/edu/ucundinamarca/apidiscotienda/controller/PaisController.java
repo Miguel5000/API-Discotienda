@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.apidiscotienda.controller;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.PaisDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Pais;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -40,7 +41,7 @@ public class PaisController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerTodos() throws ObtencionException{
     
-        List<Pais> paises = this.service.obtenerTodos();
+        List<PaisDto> paises = this.service.obtenerTodos();
         return Response.status(Response.Status.OK).entity(paises).build();
         
     }
@@ -50,7 +51,7 @@ public class PaisController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPorId(Integer id) throws ObtencionException{
     
-        Pais pais = this.service.obtenerPorId(id);
+        PaisDto pais = this.service.obtenerPorId(id);
         return Response.status(Response.Status.OK).entity(pais).build();
         
     }
