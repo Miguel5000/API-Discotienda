@@ -14,12 +14,14 @@ import co.edu.ucundinamarca.ejbdiscotienda.service.IGeneroService;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -47,9 +49,9 @@ public class GeneroController {
     }
     
     @GET
-    @Path("/obtenerPorId")
+    @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerPorId(Integer id) throws ObtencionException{
+    public Response obtenerPorId(@PathParam("id") Integer id) throws ObtencionException{
     
         GeneroDto genero = this.service.obtenerPorId(id);
         return Response.status(Response.Status.OK).entity(genero).build();
@@ -59,7 +61,7 @@ public class GeneroController {
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crear(Genero genero) throws CreacionException{
+    public Response crear(@Valid Genero genero) throws CreacionException{
     
         this.service.crear(genero);
         return Response.status(Response.Status.CREATED).build();
@@ -69,7 +71,7 @@ public class GeneroController {
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editar(Genero genero) throws ObtencionException, EdicionException{
+    public Response editar(@Valid Genero genero) throws ObtencionException, EdicionException{
     
         this.service.editar(genero);
         return Response.status(Response.Status.OK).build();
@@ -79,7 +81,7 @@ public class GeneroController {
     @DELETE
     @Path("/eliminar")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response eliminar(Genero genero) throws ObtencionException{
+    public Response eliminar(@Valid Genero genero) throws ObtencionException{
     
         this.service.eliminar(genero);
         return Response.status(Response.Status.NO_CONTENT).build();
@@ -87,9 +89,9 @@ public class GeneroController {
     }
     
     @DELETE
-    @Path("/eliminarPorId")
+    @Path("/eliminarPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminarPorId(Integer id) throws ObtencionException{
+    public Response eliminarPorId(@PathParam("id") Integer id) throws ObtencionException{
     
         this.service.eliminarPorId(id);
         return Response.status(Response.Status.NO_CONTENT).build();

@@ -14,12 +14,14 @@ import co.edu.ucundinamarca.ejbdiscotienda.service.ICreadorDiscoService;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -47,9 +49,9 @@ public class CreadorDiscoController {
     }
     
     @GET
-    @Path("/obtenerPorId")
+    @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerPorId(Integer id) throws ObtencionException{
+    public Response obtenerPorId(@PathParam("id") Integer id) throws ObtencionException{
     
         CreadorDiscoDto creacion = this.service.obtenerPorId(id);
         return Response.status(Response.Status.OK).entity(creacion).build();
@@ -59,7 +61,7 @@ public class CreadorDiscoController {
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crear(CreadorDisco creacion) throws CreacionException{
+    public Response crear(@Valid CreadorDisco creacion) throws CreacionException{
     
         this.service.crear(creacion);
         return Response.status(Response.Status.CREATED).build();
@@ -69,7 +71,7 @@ public class CreadorDiscoController {
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editar(CreadorDisco creacion) throws ObtencionException, EdicionException{
+    public Response editar(@Valid CreadorDisco creacion) throws ObtencionException, EdicionException{
     
         this.service.editar(creacion);
         return Response.status(Response.Status.OK).build();
@@ -79,7 +81,7 @@ public class CreadorDiscoController {
     @DELETE
     @Path("/eliminar")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response eliminar(CreadorDisco creacion) throws ObtencionException{
+    public Response eliminar(@Valid CreadorDisco creacion) throws ObtencionException{
     
         this.service.eliminar(creacion);
         return Response.status(Response.Status.NO_CONTENT).build();
@@ -87,9 +89,9 @@ public class CreadorDiscoController {
     }
     
     @DELETE
-    @Path("/eliminarPorId")
+    @Path("/eliminarPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminarPorId(Integer id) throws ObtencionException{
+    public Response eliminarPorId(@PathParam("id") Integer id) throws ObtencionException{
     
         this.service.eliminarPorId(id);
         return Response.status(Response.Status.NO_CONTENT).build();

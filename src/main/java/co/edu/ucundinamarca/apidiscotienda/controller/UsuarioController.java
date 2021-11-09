@@ -14,12 +14,14 @@ import co.edu.ucundinamarca.ejbdiscotienda.service.IUsuarioService;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -47,9 +49,9 @@ public class UsuarioController {
     }
     
     @GET
-    @Path("/obtenerPorId")
+    @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerPorId(Integer id) throws ObtencionException{
+    public Response obtenerPorId(@PathParam("id") Integer id) throws ObtencionException{
     
         UsuarioDto usuario = this.service.obtenerPorId(id);
         return Response.status(Response.Status.OK).entity(usuario).build();
@@ -59,7 +61,7 @@ public class UsuarioController {
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crear(Usuario usuario) throws CreacionException{
+    public Response crear(@Valid Usuario usuario) throws CreacionException{
     
         this.service.crear(usuario);
         return Response.status(Response.Status.CREATED).build();
@@ -69,7 +71,7 @@ public class UsuarioController {
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editar(Usuario usuario) throws ObtencionException, EdicionException{
+    public Response editar(@Valid Usuario usuario) throws ObtencionException, EdicionException{
     
         this.service.editar(usuario);
         return Response.status(Response.Status.OK).build();
@@ -79,7 +81,7 @@ public class UsuarioController {
     @DELETE
     @Path("/eliminar")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response eliminar(Usuario usuario) throws ObtencionException{
+    public Response eliminar(@Valid Usuario usuario) throws ObtencionException{
     
         this.service.eliminar(usuario);
         return Response.status(Response.Status.NO_CONTENT).build();
@@ -87,9 +89,9 @@ public class UsuarioController {
     }
     
     @DELETE
-    @Path("/eliminarPorId")
+    @Path("/eliminarPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminarPorId(Integer id) throws ObtencionException{
+    public Response eliminarPorId(@PathParam("id") Integer id) throws ObtencionException{
     
         this.service.eliminarPorId(id);
         return Response.status(Response.Status.NO_CONTENT).build();
@@ -97,9 +99,9 @@ public class UsuarioController {
     }
     
     @PUT
-    @Path("/enviarCorreoRecuperacion")
+    @Path("/enviarCorreoRecuperacion/{correo}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response enviarCorreoRecuperacion(String correo) throws ObtencionException{
+    public Response enviarCorreoRecuperacion(@PathParam("correo") String correo) throws ObtencionException{
     
         this.service.enviarCorreoRecuperacion(correo);
         return Response.status(Response.Status.OK).build();
@@ -107,9 +109,9 @@ public class UsuarioController {
     }
     
     @PUT
-    @Path("/recuperarClave")
+    @Path("/recuperarClave/{token}/{clave}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response recuperarClave(String token, String clave) throws ObtencionException{
+    public Response recuperarClave(@PathParam("token") String token, @PathParam("clave") String clave) throws ObtencionException{
     
         this.service.recuperarClave(token, clave);
         return Response.status(Response.Status.OK).build();
@@ -117,9 +119,9 @@ public class UsuarioController {
     }
     
     @PUT
-    @Path("/enviarCorreoValidacion")
+    @Path("/enviarCorreoValidacion/{correo}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response enviarCorreoValidacion(String correo) throws ObtencionException{
+    public Response enviarCorreoValidacion(@PathParam("correo") String correo) throws ObtencionException{
     
         this.service.enviarCorreoValidacion(correo);
         return Response.status(Response.Status.OK).build();
@@ -127,9 +129,9 @@ public class UsuarioController {
     }
     
     @PUT
-    @Path("/modificarCorreo")
+    @Path("/modificarCorreo/{token}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response modificarCorreo(String token) throws ObtencionException{
+    public Response modificarCorreo(@PathParam("token") String token) throws ObtencionException{
     
         this.service.modificarCorreo(token);
         return Response.status(Response.Status.OK).build();
