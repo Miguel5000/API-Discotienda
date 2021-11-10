@@ -81,21 +81,11 @@ public class CompraController {
     }
     
     @DELETE
-    @Path("/eliminar")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response eliminar(@Valid Compra compra) throws ObtencionException{
-    
-        this.service.eliminar(compra);
-        return Response.status(Response.Status.NO_CONTENT).build();
-    
-    }
-    
-    @DELETE
-    @Path("/eliminarPorId/{id}")
+    @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminarPorId(@PathParam("id") Integer id) throws ObtencionException{
+    public Response eliminar(@PathParam("id") Integer id) throws ObtencionException{
     
-        this.service.eliminarPorId(id);
+        this.service.eliminar(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     
     }
@@ -110,13 +100,12 @@ public class CompraController {
     
     }
     
-    @POST
-    @Path("/obtenerCarrito")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("/obtenerCarrito/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerCarrito(@Valid Usuario usuario) throws ObtencionException{
+    public Response obtenerCarrito(@PathParam("id") Integer id) throws ObtencionException{
     
-        Carrito carrito = this.service.obtenerCarrito(usuario);
+        Carrito carrito = this.service.obtenerCarrito(id);
         return Response.status(Response.Status.OK).entity(carrito).build();
     
     }

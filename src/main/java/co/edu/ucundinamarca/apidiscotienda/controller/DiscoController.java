@@ -5,12 +5,14 @@
  */
 package co.edu.ucundinamarca.apidiscotienda.controller;
 
+import co.edu.ucundinamarca.apidiscotienda.utilidades.Archivo;
 import co.edu.ucundinamarca.ejbdiscotienda.dto.DiscoDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import co.edu.ucundinamarca.ejbdiscotienda.service.IDiscoService;
+import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -61,9 +63,22 @@ public class DiscoController {
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crear(@Valid Disco disco) throws CreacionException{
+    public Response crear(@Valid Disco disco) throws CreacionException, IOException{
     
+        String ruta = "imagenes/discos/" +  disco.getCreaciones().get(0).getArtista().getId() + "_" + disco.getNombre() + ".jpg";
+            
+        if(disco.getPortadaEnBytes() == null)
+            disco.setPortada(null);
+        else
+            disco.setPortada("http://localhost:8080/apiDiscotienda/" + ruta);
+ 
+        
         this.service.crear(disco);
+        
+        if(disco.getPortadaEnBytes() != null){
+            Archivo.guardarArchivo(ruta, disco.getPortadaEnBytes());
+        }
+        
         return Response.status(Response.Status.CREATED).build();
         
     }
@@ -71,29 +86,31 @@ public class DiscoController {
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editar(@Valid Disco disco) throws ObtencionException, EdicionException{
+    public Response editar(@Valid Disco disco) throws ObtencionException, EdicionException, IOException{
     
+        String ruta = "imagenes/discos/" +  disco.getCreaciones().get(0).getArtista().getId() + "_" + disco.getNombre() + ".jpg";
+            
+        if(disco.getPortadaEnBytes() == null)
+            disco.setPortada(null);
+        else
+            disco.setPortada("http://localhost:8080/apiDiscotienda/" + ruta);
+ 
         this.service.editar(disco);
+        
+        if(disco.getPortadaEnBytes() != null){
+            Archivo.guardarArchivo(ruta, disco.getPortadaEnBytes());
+        }
+        
         return Response.status(Response.Status.OK).build();
     
     }
     
     @DELETE
-    @Path("/eliminar")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response eliminar(@Valid Disco disco) throws ObtencionException{
-    
-        this.service.eliminar(disco);
-        return Response.status(Response.Status.NO_CONTENT).build();
-    
-    }
-    
-    @DELETE
-    @Path("/eliminarPorId/{id}")
+    @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminarPorId(@PathParam("id") Integer id) throws ObtencionException{
+    public Response eliminar(@PathParam("id") Integer id) throws ObtencionException{
     
-        this.service.eliminarPorId(id);
+        this.service.eliminar(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     
     }

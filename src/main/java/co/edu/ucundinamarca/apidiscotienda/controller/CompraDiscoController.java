@@ -5,7 +5,6 @@
  */
 package co.edu.ucundinamarca.apidiscotienda.controller;
 
-import co.edu.ucundinamarca.apidiscotienda.model.RetiroDisco;
 import co.edu.ucundinamarca.ejbdiscotienda.dto.CompraDiscoDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraDisco;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
@@ -79,33 +78,22 @@ public class CompraDiscoController {
         return Response.status(Response.Status.OK).build();
     
     }
-    
+
     @DELETE
-    @Path("/eliminar")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response eliminar(@Valid CompraDisco compraDisco) throws ObtencionException{
-    
-        this.service.eliminar(compraDisco);
-        return Response.status(Response.Status.NO_CONTENT).build();
-    
-    }
-    
-    @DELETE
-    @Path("/eliminarPorId/{id}")
+    @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminarPorId(@PathParam("id") Integer id) throws ObtencionException{
+    public Response eliminar(@PathParam("id") Integer id) throws ObtencionException{
     
-        this.service.eliminarPorId(id);
+        this.service.eliminar(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     
     }
     
     @DELETE
-    @Path("/retirarDisco")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response retirarDisco(@Valid RetiroDisco retiroDisco) throws ObtencionException{
+    @Path("/retirarDisco/{idDisco}/{idCompra}")
+    public Response retirarDisco(@PathParam("idDisco") Integer idDisco, @PathParam("idCommpra") Integer idCompra) throws ObtencionException{
     
-        this.service.retirarDisco(retiroDisco.getDisco(), retiroDisco.getCompra());
+        this.service.retirarDisco(idDisco, idCompra);
         return Response.status(Response.Status.NO_CONTENT).build();
     
     }

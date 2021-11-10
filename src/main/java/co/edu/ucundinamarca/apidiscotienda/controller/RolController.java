@@ -79,21 +79,11 @@ public class RolController {
     }
     
     @DELETE
-    @Path("/eliminar")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response eliminar(@Valid Rol rol) throws ObtencionException{
-    
-        this.service.eliminar(rol);
-        return Response.status(Response.Status.NO_CONTENT).build();
-    
-    }
-    
-    @DELETE
-    @Path("/eliminarPorId/{id}")
+    @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminarPorId(@PathParam("id") Integer id) throws ObtencionException{
+    public Response eliminar(@PathParam("id") Integer id) throws ObtencionException{
     
-        this.service.eliminarPorId(id);
+        this.service.eliminar(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     
     }

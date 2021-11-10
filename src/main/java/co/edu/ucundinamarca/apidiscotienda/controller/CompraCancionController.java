@@ -4,11 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.ucundinamarca.apidiscotienda.controller;
-
-import co.edu.ucundinamarca.apidiscotienda.model.RetiroCancion;
 import co.edu.ucundinamarca.ejbdiscotienda.dto.CompraCancionDto;
-import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
-import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraCancion;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -83,31 +79,20 @@ public class CompraCancionController {
     }
     
     @DELETE
-    @Path("/eliminar")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response eliminar(@Valid CompraCancion compraCancion) throws ObtencionException{
-    
-        this.service.eliminar(compraCancion);
-        return Response.status(Response.Status.NO_CONTENT).build();
-    
-    }
-    
-    @DELETE
-    @Path("/eliminarPorId/{id}")
+    @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminarPorId(@PathParam("id") Integer id) throws ObtencionException{
+    public Response eliminar(@PathParam("id") Integer id) throws ObtencionException{
     
-        this.service.eliminarPorId(id);
+        this.service.eliminar(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     
     }
     
     @DELETE
-    @Path("/retirarCancion")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response retirarCancion(@Valid RetiroCancion retiroCancion) throws ObtencionException{
+    @Path("/retirarCancion/{idCancion}/{idCompra}")
+    public Response retirarCancion(@PathParam("idCancion") Integer idCancion, @PathParam("idCommpra") Integer idCompra) throws ObtencionException{
     
-        this.service.retirarCancion(retiroCancion.getCancion(), retiroCancion.getCompra());
+        this.service.retirarCancion(idCancion, idCompra);
         return Response.status(Response.Status.NO_CONTENT).build();
     
     }
