@@ -90,7 +90,7 @@ public class CompraCancionController {
     
     @DELETE
     @Path("/retirarCancion/{idCancion}/{idCompra}")
-    public Response retirarCancion(@PathParam("idCancion") Integer idCancion, @PathParam("idCommpra") Integer idCompra) throws ObtencionException{
+    public Response retirarCancion(@PathParam("idCancion") Integer idCancion, @PathParam("idCompra") Integer idCompra) throws ObtencionException{
     
         this.service.retirarCancion(idCancion, idCompra);
         return Response.status(Response.Status.NO_CONTENT).build();

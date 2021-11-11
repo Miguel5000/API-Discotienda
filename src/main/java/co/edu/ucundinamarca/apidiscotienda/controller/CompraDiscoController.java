@@ -91,7 +91,7 @@ public class CompraDiscoController {
     
     @DELETE
     @Path("/retirarDisco/{idDisco}/{idCompra}")
-    public Response retirarDisco(@PathParam("idDisco") Integer idDisco, @PathParam("idCommpra") Integer idCompra) throws ObtencionException{
+    public Response retirarDisco(@PathParam("idDisco") Integer idDisco, @PathParam("idCompra") Integer idCompra) throws ObtencionException{
     
         this.service.retirarDisco(idDisco, idCompra);
         return Response.status(Response.Status.NO_CONTENT).build();

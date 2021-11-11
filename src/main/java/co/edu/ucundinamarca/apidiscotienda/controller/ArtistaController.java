@@ -51,7 +51,7 @@ public class ArtistaController {
     }
     
     @GET
-    @Path("/obtenerPorId({id}")
+    @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPorId(@PathParam("id") Integer id) throws ObtencionException{
         
