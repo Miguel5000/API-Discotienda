@@ -60,6 +60,16 @@ public class DiscoController {
         
     }
     
+    @GET
+    @Path("/obtenerPorArtista/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPorArtista(@PathParam("id") Integer id) throws ObtencionException{
+    
+        List<DiscoDto> discos = this.service.obtenerPorArtista(id);
+        return Response.status(Response.Status.OK).entity(discos).build();
+        
+    }
+    
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)

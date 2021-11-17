@@ -88,6 +88,16 @@ public class UsuarioController {
     
     }
     
+    @GET
+    @Path("/iniciarSesion/{correo}/{clave}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response iniciarSesion(@PathParam("correo") String correo, @PathParam("clave") String clave) throws ObtencionException{
+    
+        UsuarioDto usuario = this.service.iniciarSesion(correo, clave);
+        return Response.status(Response.Status.OK).entity(usuario).build();
+    
+    }
+    
     @PUT
     @Path("/enviarCorreoRecuperacion/{correo}")
     @Consumes(MediaType.APPLICATION_JSON)
