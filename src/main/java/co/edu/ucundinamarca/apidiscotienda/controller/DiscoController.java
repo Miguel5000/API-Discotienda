@@ -13,6 +13,7 @@ import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import co.edu.ucundinamarca.ejbdiscotienda.service.IDiscoService;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -75,7 +76,7 @@ public class DiscoController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response crear(@Valid Disco disco) throws CreacionException, IOException{
     
-        String ruta = "imagenes/discos/" +  disco.getCreaciones().get(0).getArtista().getId() + "_" + disco.getNombre() + ".jpg";
+        String ruta = "imagenes/discos/" +  disco.getNombre() + new Date().getTime() + ".jpg";
             
         if(disco.getPortadaEnBytes() == null)
             disco.setPortada(null);
@@ -83,13 +84,13 @@ public class DiscoController {
             disco.setPortada("http://localhost:8080/apiDiscotienda/" + ruta);
  
         
-        this.service.crear(disco);
+        DiscoDto discoRetorno = this.service.crear(disco);
         
         if(disco.getPortadaEnBytes() != null){
             Archivo.guardarArchivo(ruta, disco.getPortadaEnBytes());
         }
         
-        return Response.status(Response.Status.CREATED).build();
+        return Response.status(Response.Status.CREATED).entity(discoRetorno).build();
         
     }
     

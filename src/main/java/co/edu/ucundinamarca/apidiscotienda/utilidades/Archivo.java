@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class Archivo {
     
-    public static void guardarArchivo(String ruta, Byte[] archivoEnBytes) throws FileNotFoundException, IOException{
+    public static void guardarArchivo(String ruta, Integer[] archivoEnBytes) throws FileNotFoundException, IOException{
     
         String rutaCompleta = "C:/Users/Miguel/Documents/NetBeansProjects/apiDiscotienda/src/main/webapp/" + ruta;
         
@@ -26,7 +26,7 @@ public class Archivo {
         
         for (int i=0; i<archivoEnBytes.length; i++) {
             
-            archivoConvertido[i] = archivoEnBytes[i];
+            archivoConvertido[i] = archivoEnBytes[i].byteValue();
             
         }
         
