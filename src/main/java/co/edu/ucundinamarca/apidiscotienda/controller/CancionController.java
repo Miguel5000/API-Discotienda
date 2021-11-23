@@ -13,6 +13,7 @@ import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import co.edu.ucundinamarca.ejbdiscotienda.service.ICancionService;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -88,7 +89,7 @@ public class CancionController{
     @Consumes(MediaType.APPLICATION_JSON)
     public Response editar(@Valid Cancion cancion) throws ObtencionException, EdicionException, IOException{
     
-        String ruta = "imagenes/canciones/" +  cancion.getDisco().getId() + "_" + cancion.getNombre() + ".jpg";
+        String ruta = "imagenes/canciones/" +  new Date().getTime() + ".jpg";
             
         if(cancion.getPortadaEnBytes() == null)
             cancion.setPortada(null);

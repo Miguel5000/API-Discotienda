@@ -14,6 +14,7 @@ import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import co.edu.ucundinamarca.ejbdiscotienda.service.IArtistaService;
 import co.edu.ucundinamarca.ejbdiscotienda.view.VentasArtista;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -87,7 +88,7 @@ public class ArtistaController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response editar(@Valid Artista artista) throws ObtencionException, EdicionException, IOException{
         
-        String ruta = "imagenes/artistas/" +  artista.getNombres() + artista.getApellidos() + artista.getFechaDeNacimiento().toString() + ".jpg";
+        String ruta = "imagenes/artistas/" + new Date().getTime() + ".jpg";
             
         if(artista.getFotoEnBytes() == null)
             artista.setFoto(null);
