@@ -58,6 +58,17 @@ public class CreadorDiscoController {
         
     }
     
+    @GET
+    @Path("/obtenerPorCreadorYDisco/{idArtista}/{idDisco}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPorCreadorYDisco(@PathParam("idArtista") Integer idArtista, @PathParam("idDisco") Integer idDisco) throws ObtencionException{
+    
+        CreadorDiscoDto creacion = this.service.obtenerPorCreadorYDisco(idArtista, idDisco);
+        return Response.status(Response.Status.OK).entity(creacion).build();
+        
+    }
+    
+    
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)

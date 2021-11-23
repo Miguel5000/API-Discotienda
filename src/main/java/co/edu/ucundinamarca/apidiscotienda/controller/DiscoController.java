@@ -99,7 +99,7 @@ public class DiscoController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response editar(@Valid Disco disco) throws ObtencionException, EdicionException, IOException{
     
-        String ruta = "imagenes/discos/" +  disco.getCreaciones().get(0).getArtista().getId() + "_" + disco.getNombre() + ".jpg";
+        String ruta = "imagenes/discos/" +  disco.getNombre() + new Date().getTime() + ".jpg";
             
         if(disco.getPortadaEnBytes() == null)
             disco.setPortada(null);
