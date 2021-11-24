@@ -27,17 +27,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Miguel
+ * Clase que posee los servicios de la API encargados de gestionar a las asociaciones de canciones a compras
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Stateless
 @Path("/comprasCanciones")
 public class CompraCancionController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private ICompraCancionService service;
     
+    /**
+     * Permite obtener todas las compras de canciones
+     * @return comprasCanciones
+     * @throws ObtencionException excepción lanzada al no encontrar compras de canciones 
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +57,12 @@ public class CompraCancionController {
         
     }
     
+    /**
+     * Permite obtener una compra de canción por su id
+     * @param id es la llave primaria de la compra de canción a obtener
+     * @return compraCanción
+     * @throws ObtencionException excepción lanzada al no encontrar la compra de la canción
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,6 +73,12 @@ public class CompraCancionController {
         
     }
     
+    /**
+     * Permite crear la compra de la canción
+     * @param compraCancion es la compra de la canción a crear
+     * @return compraCancion
+     * @throws CreacionException excepción lanzada al no poder crear la compra de la canción 
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,6 +89,13 @@ public class CompraCancionController {
         
     }
     
+    /**
+     * Permite editar una compra de canción
+     * @param compraCancion objeto que posee los datos de la compra de la canción a editar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar la compra de la canción a editar
+     * @throws EdicionException excepción lanzada al no poder editar la compra de la canción por un conflicto
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -78,6 +106,12 @@ public class CompraCancionController {
     
     }
     
+    /**
+     * Permite eliminar una canción por su id
+     * @param id es la llave primaria de la compra de la canción a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar la compra de la cancíón a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -88,6 +122,13 @@ public class CompraCancionController {
     
     }
     
+    /**
+     * Permite retirar una canción de una compra
+     * @param idCancion es la llave primaria de la canción a retirar
+     * @param idCompra es la llave primaria de la compra de la cual se retirará la canción
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar la canción o compra a eliminar
+     */
     @DELETE
     @Path("/retirarCancion/{idCancion}/{idCompra}")
     public Response retirarCancion(@PathParam("idCancion") Integer idCancion, @PathParam("idCompra") Integer idCompra) throws ObtencionException{
@@ -97,6 +138,11 @@ public class CompraCancionController {
     
     }
     
+    /**
+     * Permite obtener las canciones con sus ventas
+     * @return ventas
+     * @throws ObtencionException excepción lanzada al no encontrar ninguna canción y por lo tanto ninguna venta
+     */
     @GET
     @Path("/obtenerVentas")
     @Produces(MediaType.APPLICATION_JSON)

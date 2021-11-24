@@ -27,18 +27,28 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-/**
- *
- * @author Miguel
- */
 
+/**
+ * Clase que posee los servicios de la API encargados de gestionar la relación entre compras y discos
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 @Stateless
 @Path("/comprasDiscos")
 public class CompraDiscoController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private ICompraDiscoService service;
     
+    /**
+     * Permite obtener todas las compras de discos
+     * @return compras
+     * @throws ObtencionException excepción lanzada al no encontrar compras de discos
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -49,6 +59,12 @@ public class CompraDiscoController {
         
     }
     
+    /**
+     * Permite obtener una compra de disco por su id
+     * @param id es la llave primaria de la compra de disco a obtener
+     * @return compra
+     * @throws ObtencionException excepción lanzada al no encontrar la compra
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,6 +75,12 @@ public class CompraDiscoController {
         
     }
     
+    /**
+     * Permite crear una compra de disco
+     * @param compraDisco es la compra de disco a crear
+     * @return Confirmación
+     * @throws CreacionException excepción lanzada al no poder crear la compra de disco
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -69,6 +91,13 @@ public class CompraDiscoController {
         
     }
     
+    /**
+     * Permite editar una compra de disco
+     * @param compraDisco objeto que posee los nuevos datos de la compra del disco
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar la compra de disco a editar
+     * @throws EdicionException excepción lanzada al no poder editar la compra del disco por un conflicto
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -79,6 +108,12 @@ public class CompraDiscoController {
     
     }
 
+    /**
+     * Permite eliminar la compra del disco por su id
+     * @param id es la llave primaria de la compra del disco a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar la compra del disco a eliminar 
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,6 +124,13 @@ public class CompraDiscoController {
     
     }
     
+    /**
+     * Permite retirar un disco de una compra
+     * @param idDisco es la llave primaria del disco a retirar de la compra
+     * @param idCompra es la llave primaria de la compra de la cual se retirará el disco
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el disco o la compra
+     */
     @DELETE
     @Path("/retirarDisco/{idDisco}/{idCompra}")
     public Response retirarDisco(@PathParam("idDisco") Integer idDisco, @PathParam("idCompra") Integer idCompra) throws ObtencionException{
@@ -98,6 +140,11 @@ public class CompraDiscoController {
     
     }
     
+    /**
+     * Permite obtener todos los discos con sus ventas
+     * @return ventas
+     * @throws ObtencionException excepción lanzada al no encontrar discos y por lo tanto, tampoco encontrar sus ventas
+     */
     @GET
     @Path("/obtenerVentas")
     @Produces(MediaType.APPLICATION_JSON)

@@ -27,17 +27,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Miguel
+ * Clase que posee los servicios de la API encargados de gestionar los géneros
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Stateless
 @Path("/generos")
 public class GeneroController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private IGeneroService service;
     
+    /**
+     * Permite obtener todos los géneros
+     * @return géneros
+     * @throws ObtencionException excepción lanzada al no encontrar géneros
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +57,12 @@ public class GeneroController {
         
     }
     
+    /**
+     * Permite obtener un género por su id
+     * @param id es la llave primaria del género a encontrar
+     * @return género
+     * @throws ObtencionException excepción lanzada al no encontrar el género
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,6 +73,12 @@ public class GeneroController {
         
     }
     
+    /**
+     * Permite crear un género
+     * @param genero es el género a crear
+     * @return Confirmación
+     * @throws CreacionException excepción lanzada al no poder crear el género
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,6 +89,13 @@ public class GeneroController {
         
     }
     
+    /**
+     * Permite editar un género
+     * @param genero objeto con los nuevos datos del género
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el género a editar
+     * @throws EdicionException excepción lanzada al no poder editar el género por un conflicto
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -78,6 +106,12 @@ public class GeneroController {
     
     }
     
+    /**
+     * Permite eliminar un género
+     * @param id es la llave primaria del género a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el género a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)

@@ -26,18 +26,28 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-/**
- *
- * @author Miguel
- */
 
+/**
+ * Clase que posee los servicios de la API encargados de gestionar a los usuarios
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 @Stateless
 @Path("/usuarios")
 public class UsuarioController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private IUsuarioService service;
     
+    /**
+     * Permite obtener todos los usuarios
+     * @return usuarios
+     * @throws ObtencionException excepción lanzada al no encontrar usuarios
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +58,12 @@ public class UsuarioController {
         
     }
     
+    /**
+     * Permite obtener un usuario por su id
+     * @param id es la llave primaria del usuario a encontrar
+     * @return usuario
+     * @throws ObtencionException excepción lanzada al no encontrar el usuario
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,6 +74,12 @@ public class UsuarioController {
         
     }
     
+    /**
+     * Permite crear un usuario
+     * @param usuario es el usuario a crear
+     * @return Confirmación
+     * @throws CreacionException excepción lanzada al no poder crear el usuario
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,6 +90,13 @@ public class UsuarioController {
         
     }
     
+    /**
+     * Permite editar un usuario
+     * @param usuario objeto con los nuevos datos del usuario
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el usuario a editar
+     * @throws EdicionException excepción lanzada al no poder editar el usuario por un conflicto
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -78,6 +107,12 @@ public class UsuarioController {
     
     }
     
+    /**
+     * Permite eliminar un usuario por su id
+     * @param id es la llave primaria del usuario a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el usuario a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -88,6 +123,13 @@ public class UsuarioController {
     
     }
     
+    /**
+     * Permite obtener los datos del usuario al iniciar sesión
+     * @param correo es el correo del usuario
+     * @param clave es la clave del usuario
+     * @return usuario
+     * @throws ObtencionException excepción lanzada al no encontrar el usuario
+     */
     @GET
     @Path("/iniciarSesion/{correo}/{clave}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -98,6 +140,12 @@ public class UsuarioController {
     
     }
     
+    /**
+     * Permite enviar un correo de recuperación
+     * @param correo es la dirección del correo
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar un usuario con el correo suministrado
+     */
     @PUT
     @Path("/enviarCorreoRecuperacion/{correo}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -108,6 +156,13 @@ public class UsuarioController {
         
     }
     
+    /**
+     * Permite que un usuario recupere su clave
+     * @param token es el token que usa el usuario para recuperar su contraseña
+     * @param clave es la nueva clave
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el usuario
+     */
     @PUT
     @Path("/recuperarClave/{token}/{clave}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -118,6 +173,12 @@ public class UsuarioController {
         
     }
     
+    /**
+     * Permite enviar un correo de validación para comprobar la existencia de la dirección
+     * @param correo es el correo a validar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el correo en un usuario
+     */
     @PUT
     @Path("/enviarCorreoValidacion/{correo}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -128,6 +189,12 @@ public class UsuarioController {
         
     }
     
+    /**
+     * Permite modificar el correo de un usuario
+     * @param token es el token usado para validar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no poder encontrar un usuario con el correo
+     */
     @PUT
     @Path("/modificarCorreo/{token}")
     @Consumes(MediaType.APPLICATION_JSON)

@@ -27,17 +27,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Miguel
+ * Clase que posee los servicios de la API encargados de gestionar a los formatos
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Stateless
 @Path("/formatos")
 public class FormatoController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private IFormatoService service;
     
+    /**
+     * Permite obtener todos los formatos
+     * @return formatos
+     * @throws ObtencionException excepción lanzada al no encontrar formatos
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +57,12 @@ public class FormatoController {
         
     }
     
+    /**
+     * Permite obtener un formato por su id
+     * @param id es la llave primaria del formato a obtener
+     * @return formato
+     * @throws ObtencionException excepción lanzada al no poder encontrar el formato
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,6 +73,12 @@ public class FormatoController {
         
     }
     
+    /**
+     * Permite crear un formato
+     * @param formato es el formato a crear
+     * @return Confirmación
+     * @throws CreacionException excepción lanzada al no poder crear el formato
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,6 +89,13 @@ public class FormatoController {
         
     }
     
+    /**
+     * Permite editar un formato
+     * @param formato objeto con los nuevos datos del formato a editar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no poder encontrar el formato a editar
+     * @throws EdicionException excepción lanzada al no poder editar el formato por un conflicto
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -78,6 +106,12 @@ public class FormatoController {
     
     }
     
+    /**
+     * Permite eliminar un formato
+     * @param id es la llave primaria del formato a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el formato a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)

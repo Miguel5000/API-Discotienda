@@ -31,16 +31,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Miguel
+ * Clase que posee los servicios de la API encargados de gestionar a los artistas
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
 @Stateless
 @Path("/artistas")
 public class ArtistaController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private IArtistaService service;
     
+    /**
+     * Permite obtener a todos los artistas
+     * @return artistas
+     * @throws ObtencionException excepción lanzada al no existir ningún artista
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,6 +61,12 @@ public class ArtistaController {
         
     }
     
+    /**
+     * Permite obtener a un artista por su id
+     * @param id es la llave primaria de entrada
+     * @return artista
+     * @throws ObtencionException excepción lanzada al no encontrar al artista con el id
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,6 +77,13 @@ public class ArtistaController {
         
     }
     
+    /**
+     * Permite crear a un artista
+     * @param artista es el artista a crear
+     * @return confirmación
+     * @throws CreacionException excepción lanzada al no poder crear al artista
+     * @throws IOException excepción lanzada al no poder almacenar la foto del artista
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -83,6 +106,14 @@ public class ArtistaController {
         
     }
     
+    /**
+     * Permite editar a un artista
+     * @param artista objeto que contienen los nuevos datos del artista
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar al artista a editar
+     * @throws EdicionException excepción lanzada al no poder editar al artista por un conflicto
+     * @throws IOException excepción lanzada al no poder editar la foto del artista
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -105,6 +136,12 @@ public class ArtistaController {
         
     }
     
+    /**
+     * Permite eliminar al artista por su id
+     * @param id es la llave primaria del artista a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar al artista a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -115,6 +152,11 @@ public class ArtistaController {
         
     }
     
+    /**
+     * Permite obtener las ventas de todos los artistas
+     * @return ventas
+     * @throws ObtencionException excepción lanzada al no encontrar ningún artista y por lo tanto ninguna venta
+     */
     @GET
     @Path("/obtenerVentas")
     @Produces(MediaType.APPLICATION_JSON)

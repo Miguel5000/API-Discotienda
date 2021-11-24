@@ -27,17 +27,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Miguel
+ * Clase que posee los servicios de la API encargados de gestionar a los roles
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Stateless
 @Path("/roles")
 public class RolController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private IRolService service;
     
+    /**
+     * Permite obtener todos los roles
+     * @return roles
+     * @throws ObtencionException excepción lanzada al no encontrar roles
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +57,12 @@ public class RolController {
         
     }
     
+    /**
+     * Permite obtener un rol por su id
+     * @param id es la llave primaria del rol a encontrar
+     * @return rol
+     * @throws ObtencionException excepción lanzada al no encontrar el rol
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,6 +73,12 @@ public class RolController {
         
     }
     
+    /**
+     * Permite crear un rol
+     * @param rol es el rol a crear
+     * @return Confirmación
+     * @throws CreacionException excepción lanzada al no poder crear el rol
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,6 +89,13 @@ public class RolController {
         
     }
     
+    /**
+     * Permite editar un rol
+     * @param rol objeto que posee los nuevos datos del rol
+     * @return Confirmación
+     * @throws ObtencionException excepcion lanzada al no encontrar el rol a editar
+     * @throws EdicionException excepción lanzada al no poder editar el rol por un conflicto
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -78,6 +106,12 @@ public class RolController {
     
     }
     
+    /**
+     * Permite eliminar un rol
+     * @param id es la llave primaria del rol a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el rol a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)

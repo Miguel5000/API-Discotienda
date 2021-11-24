@@ -27,17 +27,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Miguel
+ * Clase que posee los servicios de la API encargados de gestionar los países
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Stateless
 @Path("/paises")
 public class PaisController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private IPaisService service;
     
+    /**
+     * Permite obtener todos los países
+     * @return países
+     * @throws ObtencionException excepción lanzada al no encontrar países
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +57,12 @@ public class PaisController {
         
     }
     
+    /**
+     * Permite obtener un país por su id
+     * @param id es la llave primaria del país a obtener
+     * @return país
+     * @throws ObtencionException excepción lanzada al no encontrar el país
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,6 +73,12 @@ public class PaisController {
         
     }
     
+    /**
+     * Permite crear un país
+     * @param pais es el país a crear
+     * @return país
+     * @throws CreacionException excepción lanzada al no poder crear el país
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,6 +89,13 @@ public class PaisController {
         
     }
     
+    /**
+     * Permite editar un país
+     * @param pais objeto con los nuevos datos del país
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el país a editar
+     * @throws EdicionException excepción lanzada al no poder editar el país por un conflicto
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -78,6 +106,12 @@ public class PaisController {
     
     }
     
+    /**
+     * Permite eliminar un país
+     * @param id es la llave primaria del país a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el país a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)

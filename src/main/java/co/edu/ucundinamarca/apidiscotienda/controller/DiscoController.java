@@ -30,17 +30,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Miguel
+ * Clase que posee los servicios de la API encargados de gestionar a los discos
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Stateless
 @Path("/discos")
 public class DiscoController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private IDiscoService service;
     
+    /**
+     * Permite obtener todos los discos
+     * @return discos
+     * @throws ObtencionException excepción lanzada al no encontrar discos
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,6 +60,12 @@ public class DiscoController {
         
     }
     
+    /**
+     * Permite obtener un disco por su id
+     * @param id es la llave primaria del disco a encontrar
+     * @return disco
+     * @throws ObtencionException excepción lanzada al no encontrar el disco
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,6 +76,12 @@ public class DiscoController {
         
     }
     
+    /**
+     * Permite obtener los discos de una artista
+     * @param id es la llave primaria del artista
+     * @return disco
+     * @throws ObtencionException excepción lanzada al no encontrar discos de un artista
+     */
     @GET
     @Path("/obtenerPorArtista/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,6 +92,13 @@ public class DiscoController {
         
     }
     
+    /**
+     * Permite crear un disco
+     * @param disco es el disco a crear
+     * @return Confirmación
+     * @throws CreacionException excepción lanzada al no poder crear el disco
+     * @throws IOException excepción lanzada al no poder guardar la portada del disco
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -94,6 +122,14 @@ public class DiscoController {
         
     }
     
+    /**
+     * Permite editar un disco
+     * @param disco objeto que posee los nuevos datos del disco
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el disco a editar
+     * @throws EdicionException excepción lanzada al no poder editar el disco por un conflicto
+     * @throws IOException excepción lanzada al no poder actualizar la portada del disco
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -116,6 +152,12 @@ public class DiscoController {
     
     }
     
+    /**
+     * Permite eliminar un disco
+     * @param id es la llave primaria del disco a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar el disco a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)

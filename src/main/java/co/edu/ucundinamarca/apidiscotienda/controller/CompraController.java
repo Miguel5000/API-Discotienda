@@ -28,17 +28,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Miguel
+ * Clase que posee los servicios de la API encargados de gestionar las compras
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Stateless
 @Path("/compras")
 public class CompraController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private ICompraService service;
     
+    /**
+     * Permite obtener todas las compras
+     * @return compras
+     * @throws ObtencionException excepción lanzada al no encontrar ninguna compra
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -49,6 +58,12 @@ public class CompraController {
         
     }
     
+    /**
+     * Permite obtener una compra por su id
+     * @param id es la llave primaria de la compra a obtener
+     * @return compra
+     * @throws ObtencionException excepción lanzada al no encontrar la compra
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,6 +74,12 @@ public class CompraController {
         
     }
     
+    /**
+     * Permite crear una compra
+     * @param compra es la compra a crear
+     * @return Confirmación
+     * @throws CreacionException excepción lanzada al no poder crear la compra
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -69,6 +90,13 @@ public class CompraController {
         
     }
     
+    /**
+     * Permite editar una compra
+     * @param compra objeto que posee los datos de la compra
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar la compra a editar
+     * @throws EdicionException excepción lanzada al no poder editar la compra por un conflicto
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -79,6 +107,12 @@ public class CompraController {
     
     }
     
+    /**
+     * Permite eliminar una compra por su id
+     * @param id es la llave primaria de la compra a eliminar
+     * @return compra
+     * @throws ObtencionException excepción lanzada al no encontrar la compra a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,6 +123,12 @@ public class CompraController {
     
     }
     
+    /**
+     * Permite comprar el carrito
+     * @param id es el id de la compra que representa al carrito
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar la compra
+     */
     @PUT
     @Path("/comprar/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -99,6 +139,12 @@ public class CompraController {
     
     }
     
+    /**
+     * Permite obtener el carrito de un usuario
+     * @param id es la llave primaria del usuario
+     * @return carrito
+     * @throws ObtencionException excepción lanzada al no encontrar el carrito del usuario
+     */
     @GET
     @Path("/obtenerCarrito/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -109,6 +155,12 @@ public class CompraController {
     
     }
     
+    /**
+     * Permite obtener la compra del carrito del usuario
+     * @param id es la llave primaria del usuario
+     * @return compra
+     * @throws ObtencionException excepción lanzada al no encontrar una compra de carrito para el usuario
+     */
     @GET
     @Path("/obtenerCompraCarrito/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -119,6 +171,12 @@ public class CompraController {
         
     }
     
+    /**
+     * Permite obtener el carrito de una compra en específico
+     * @param id es la llave primaria de la compra
+     * @return carrito
+     * @throws ObtencionException excepción lanzada al no encontrar la compra
+     */
     @GET
     @Path("/obtenerCarritoPorCompra/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -129,6 +187,12 @@ public class CompraController {
         
     }
     
+    /**
+     * Permite obtener las compras realizadas por un usuario
+     * @param id es la llave primaria del usuario
+     * @return compras
+     * @throws ObtencionException excepción lanzada al no encontrar compras asociadas al usuario
+     */
     @GET
     @Path("/obtenerComprasDeUsuario/{id}")
     @Produces(MediaType.APPLICATION_JSON)

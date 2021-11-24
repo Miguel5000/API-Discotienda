@@ -27,17 +27,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Miguel
+ * Clase que posee los servicios de la API encargados de gestionar las relaciones de autores con los discos que crearon
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Stateless
 @Path("/creadoresDiscos")
 public class CreadorDiscoController {
     
+    /**
+     * Objeto que permite la comunicación con el EJB
+     */
     @EJB
     private ICreadorDiscoService service;
     
+    /**
+     * Permite obtener todas las creaciones de discos
+     * @return creacionesDiscos
+     * @throws ObtencionException 
+     */
     @GET
     @Path("/obtenerTodos")
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +57,12 @@ public class CreadorDiscoController {
         
     }
     
+    /**
+     * Permite obtener una creación de disco en específico
+     * @param id es la llave primaria de la creación de disco a encontrar
+     * @return creacionDisco
+     * @throws ObtencionException excepción lanzada al no encontar la creación del disco
+     */
     @GET
     @Path("/obtenerPorId/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,6 +73,13 @@ public class CreadorDiscoController {
         
     }
     
+    /**
+     * Permite obtener una creación de disco por su creador y por el disco
+     * @param idArtista es la llave primaria del artista creador
+     * @param idDisco es la llave primaria del disco
+     * @return creaciónDisco
+     * @throws ObtencionException excepción lanzada al no encontrar la creación del disco
+     */
     @GET
     @Path("/obtenerPorCreadorYDisco/{idArtista}/{idDisco}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,7 +90,12 @@ public class CreadorDiscoController {
         
     }
     
-    
+    /**
+     * Permite crear una creación de disco
+     * @param creacion es la creación de disco a crear
+     * @return Confirmación
+     * @throws CreacionException excepción lanzada al no poder crear la creación de disco
+     */
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -79,6 +106,13 @@ public class CreadorDiscoController {
         
     }
     
+    /**
+     * Permite editar un disco
+     * @param creacion objeto que posee los nuevos datos de la creación de disco
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar la creación de disco a editar
+     * @throws EdicionException excepción lanzada al no poder editar la creación de disco por un conflicto
+     */
     @PUT
     @Path("/editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -89,6 +123,12 @@ public class CreadorDiscoController {
     
     }
 
+    /**
+     * Permite eliminar una creación de disco
+     * @param id es la llave primaria de la creación de disco a eliminar
+     * @return Confirmación
+     * @throws ObtencionException excepción lanzada al no encontrar la creación de disco a eliminar
+     */
     @DELETE
     @Path("/eliminar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
