@@ -109,4 +109,14 @@ public class CompraController {
     
     }
     
+    @GET
+    @Path("/obtenerCompraCarrito/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerCompraCarrito(@PathParam("id") Integer id) throws ObtencionException{
+    
+        CompraDto compra = this.service.obtenerCompraCarrito(id);
+        return Response.status(Response.Status.OK).entity(compra).build();
+        
+    }
+    
 }
